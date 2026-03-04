@@ -101,6 +101,7 @@ if(USE_OWN_SOLID) {
 }
 
 export default defineConfig({
+  base: process.env.BASE_PATH || '/',
   plugins: [
     // devtools({
     //   /* features options - all disabled by default */
