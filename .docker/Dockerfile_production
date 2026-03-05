@@ -38,3 +38,4 @@ RUN echo $BASE_PATH
 # entrypoint script: runs before nginx starts, renders the config template
 COPY .docker/40-basepath.sh /docker-entrypoint.d/40-basepath.sh
 RUN chmod +x /docker-entrypoint.d/40-basepath.sh
+RUN /docker-entrypoint.d/40-basepath.sh
