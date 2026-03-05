@@ -19,7 +19,12 @@ app.use((req, res, next) => {
   next();
 });
 app.use(compression());
-app.use(process.env.BASE_PATH, express.static(publicFolderName));
+
+if(process.env.BASE_PATH) {
+  app.use(process.env.BASE_PATH, express.static(publicFolderName));
+} else {
+  app.use(express.static(publicFolderName));
+}
 
 app.get(process.env.BASE_PATH ?? '/', (req, res) => {
   res.sendFile(__dirname + `/${publicFolderName}/index.html`);
@@ -34,5 +39,5 @@ if(!useHttp) {
 }
 
 server.createServer(options, app).listen(port, () => {
-  console.log('Listening port:', port, 'folder:', publicFolderName);
+  console.log('Listening port:', port, 'folder:', publicFolderName, 'base path:', process.env.BASE_PATH);
 });
