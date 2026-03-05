@@ -19,9 +19,9 @@ app.use((req, res, next) => {
   next();
 });
 app.use(compression());
-app.use(express.static(publicFolderName));
+app.use(process.env.BASE_PATH, express.static(publicFolderName));
 
-app.get('/', (req, res) => {
+app.get(process.env.BASE_PATH ?? '/', (req, res) => {
   res.sendFile(__dirname + `/${publicFolderName}/index.html`);
 });
 

@@ -1,0 +1,14 @@
+server {
+    listen 80;
+
+    # Redirect /base-path to /base-path/ (trailing slash required for alias to work)
+    location = ${BASE_PATH} {
+        return 301 ${BASE_PATH}/;
+    }
+
+    location ${BASE_PATH}/ {
+        alias /usr/share/nginx/html/;
+        # SPA fallback: unknown routes serve index.html
+        try_files $uri $uri/ index.html;
+    }
+}

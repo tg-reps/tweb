@@ -27,3 +27,10 @@ RUN apk update && apk upgrade --no-cache
 
 # copy the build files to nginx entry point
 COPY ./public /usr/share/nginx/html
+
+# nginx config template (BASE_PATH is substituted at container startup)
+COPY .docker/nginx.conf.template /etc/nginx/nginx.conf.template
+
+# entrypoint script: runs before nginx starts, renders the config template
+COPY .docker/40-basepath.sh /docker-entrypoint.d/40-basepath.sh
+RUN chmod +x /docker-entrypoint.d/40-basepath.sh
