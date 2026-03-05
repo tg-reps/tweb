@@ -101,7 +101,6 @@ if(USE_OWN_SOLID) {
 }
 
 export default defineConfig({
-  base: process.env.BASE_PATH || '/tweb',
   plugins: [
     // devtools({
     //   /* features options - all disabled by default */
