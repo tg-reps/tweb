@@ -17,7 +17,11 @@ RUN pnpm install
 RUN pnpm install --production
 
 # build
-RUN node build
+# RUN node build
+
+ENV URL_PREFIX=${URL_PREFIX:-/}
+
+RUN node server
 
 
 #pull nginx as webser and load balancer

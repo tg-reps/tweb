@@ -20,13 +20,13 @@ app.use((req, res, next) => {
 });
 app.use(compression());
 
-if(process.env.BASE_PATH) {
-  app.use(process.env.BASE_PATH, express.static(publicFolderName));
+if(process.env.URL_PREFIX) {
+  app.use(process.env.URL_PREFIX, express.static(publicFolderName));
 } else {
   app.use(express.static(publicFolderName));
 }
 
-app.get(process.env.BASE_PATH ?? '/', (req, res) => {
+app.get(process.env.URL_PREFIX ?? '/', (req, res) => {
   res.sendFile(__dirname + `/${publicFolderName}/index.html`);
 });
 
