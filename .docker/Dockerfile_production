@@ -23,7 +23,7 @@ RUN pnpm vite build
 #pull nginx as webser and load balancer
 FROM nginx:stable-alpine3.20-slim
 
-ENV BASE_PATH=/
+ENV BASE_PATH=/client
 
 RUN apk update && apk upgrade --no-cache
 
