@@ -17,29 +17,13 @@ RUN pnpm install
 RUN pnpm install --production
 
 # build
-# RUN pnpm node build
-
-ENV BASE_PATH=${BASE_PATH:-/client}
-
-RUN pnpm node server
+RUN node build
 
 
-# #pull nginx as webser and load balancer
-# FROM nginx:stable-alpine3.20-slim
+#pull nginx as webser and load balancer
+FROM nginx:stable-alpine3.20-slim
 
-# ENV BASE_PATH=${BASE_PATH:-/client}
+RUN apk update && apk upgrade --no-cache
 
-# RUN apk update && apk upgrade --no-cache
-
-# # copy the build files to nginx entry point
-# COPY ./public /usr/share/nginx/html
-
-# # nginx config template (BASE_PATH is substituted at container startup)
-# COPY .docker/nginx.conf.template /etc/nginx/nginx.conf.template
-
-# RUN echo $BASE_PATH
-
-# # entrypoint script: runs before nginx starts, renders the config template
-# COPY .docker/40-basepath.sh /docker-entrypoint.d/40-basepath.sh
-# RUN chmod +x /docker-entrypoint.d/40-basepath.sh
-# RUN /docker-entrypoint.d/40-basepath.sh
+# copy the build files to nginx entry point
+COPY ./public /usr/share/nginx/html
