@@ -17,7 +17,7 @@ RUN pnpm install
 RUN pnpm install --production
 
 # build
-RUN pnpm node build
+# RUN pnpm node build
 
 ENV BASE_PATH=${BASE_PATH:-/client}
 
