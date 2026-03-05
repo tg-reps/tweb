@@ -13,9 +13,9 @@ server {
         try_files $uri $uri/ @spa;
     }
 
-    # SPA fallback: unknown routes serve index.html
+    # SPA fallback: serve index.html directly (no internal redirect, no re-matching)
     location @spa {
         root /usr/share/nginx/html;
-        rewrite ^ /index.html last;
+        try_files /index.html =404;
     }
 }
