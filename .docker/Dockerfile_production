@@ -17,7 +17,7 @@ RUN pnpm install
 RUN pnpm install --production
 
 # build
-RUN node build
+RUN pnpm vite build
 
 
 #pull nginx as webser and load balancer

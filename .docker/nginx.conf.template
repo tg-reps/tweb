@@ -1,14 +1,21 @@
 server {
     listen 80;
 
-    # Redirect /base-path to /base-path/ (trailing slash required for alias to work)
+    # Redirect bare base path to trailing-slash version
     location = ${BASE_PATH} {
         return 301 ${BASE_PATH}/;
     }
 
     location ${BASE_PATH}/ {
-        alias /usr/share/nginx/html/;
-        # SPA fallback: unknown routes serve index.html
-        try_files $uri $uri/ index.html;
+        # Strip the base path prefix so $uri becomes /foo.js instead of /client/foo.js
+        rewrite ^${BASE_PATH}/(.*)$ /$1 break;
+        root /usr/share/nginx/html;
+        try_files $uri $uri/ @spa;
+    }
+
+    # SPA fallback: unknown routes serve index.html
+    location @spa {
+        root /usr/share/nginx/html;
+        rewrite ^ /index.html last;
     }
 }
